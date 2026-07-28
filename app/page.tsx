@@ -1,9 +1,14 @@
-import { MOCK_COMPANIES } from '@/lib/mockdata'
+'use client'
+import { AssetSearch } from '@/components/custom/AssetSearch';
+import { Company, MOCK_COMPANIES } from '@/lib/mockdata'
 
 export default function Home() {
-  return (
 
-      <p>{"i'm a test app"}</p>
+  return (  
+    <>
+      <AssetSearch></AssetSearch>
+    
+    </>
     
   )
 }
