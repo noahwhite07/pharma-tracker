@@ -24,11 +24,15 @@ import {
   SelectItem,
   SelectValue
 } from "@/components/ui/select"
-import { MOCK_COMPANIES, Asset } from "@/lib/mockdata" // Your dummy data
+import { Asset, Company } from "@/lib/mockdata" // Your dummy data
 
 interface AssetSearchProps {
   // Callback function to pass the selected asset back to the parent component
-  onSelectAsset?: (asset: Asset | null) => void
+  onSelectAsset?: (assetId: string | null) => void
+  onSelectCompany?: (companyId: string | null) => void
+
+  companies: Company[]
+
 }
 
 export function AssetSearch(componentProps: AssetSearchProps) {
@@ -39,9 +43,13 @@ export function AssetSearch(componentProps: AssetSearchProps) {
   const [selectedAssetId, setSelectedAssetId] = useState<string>("")
 
   // DERIVED DATA: Find the company object based on selectedCompanyId
-  const selectedCompany = MOCK_COMPANIES.find(
+  const selectedCompany = componentProps.companies.find(
     (c) => c.id === selectedCompanyId
   )
+
+  const getCompanyFromCompanyId = (companyId: string) => {
+    return componentProps.companies.find((company:Company) => {company.id == companyId})
+  }
 
   // DERIVED DATA: Get the assets for that company (or empty array if no company picked)
   const availableAssets = selectedCompany ? selectedCompany.assets : []
@@ -58,10 +66,9 @@ export function AssetSearch(componentProps: AssetSearchProps) {
   // Handler for when Asset Dropdown changes
   const handleAssetChange = (assetId: string | null) => {
     setSelectedAssetId(assetId ?? "")
-    const asset = availableAssets.find((a) => a.id === assetId) || null
 
     // Pass the chosen asset up to parent!
-    if (componentProps.onSelectAsset) componentProps.onSelectAsset(asset) 
+    if (componentProps.onSelectAsset) componentProps.onSelectAsset(assetId) 
   }
 
   return (
@@ -76,7 +83,7 @@ export function AssetSearch(componentProps: AssetSearchProps) {
             <SelectValue placeholder="Choose a company..." />
           </SelectTrigger>
           <SelectContent>
-            {MOCK_COMPANIES.map((company) => (
+            {componentProps.companies.map((company) => (
               <SelectItem key={company.id} value={company.id}>
                 {company.name} ({company.ticker})
               </SelectItem>
