@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "LBjWWqfZG7Ta0/Dbi87PT9U6Lw9bJXfikEPQtBhbtYg=",
+  "Source": "PharmaTracker.Api",
+  "BasePath": "_content/PharmaTracker.Api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
